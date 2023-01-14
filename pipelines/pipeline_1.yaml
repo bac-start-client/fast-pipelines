@@ -1,0 +1,16 @@
+pipeline_properties:
+  name: pipeline_1
+  event_based: yes
+  source_path: s3://my_bucket/pipeline_1_data/
+  file_type: csv
+additional_scripts: # can I make this a select only script and run the same generalized upserts to force good design patterns??
+  script-1: pipeline_1/sql_script_1.sql
+  processing_type: full # for now, use full 
+
+
+# the full type would take the body of SQL and rerun against the entire db. New rows are then determined, 
+# upserts are executed accordingly
+  # if the workflow is keeping track of changes over time, then the full load would only insert data
+  # on new dates and update existing values that have changed
+# maybe "incremental type" is useful, but having a hard time defining that at the moment
+
